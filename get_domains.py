@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 
+""" prints info about guest domains """
+
 import sys
 import libvirt
 
-conn = None
 try:
     conn = libvirt.open("qemu:///system")
 except libvirt.libvirtError as e:
     print(repr(e), file=sys.stderr)
-    exit(1)
+    sys.exit(1)
 
 domainIDs = conn.listDomainsID()
-if domainIDs == None:
+if domainIDs is None:
     print('Failed to get a list of domain IDs', file=sys.stderr)
 
 print("Active domain IDs :")
@@ -26,9 +27,8 @@ domains = conn.listAllDomains(0)
 if len(domains) != 0:
     for domain in domains:
         print('  '+domain.name())
-        print(domain)
 else:
     print('  None')
 
 conn.close()
-exit(0)
+sys.exit(0)

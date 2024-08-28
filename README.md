@@ -1,7 +1,11 @@
 # libvirt-stuff
 
-Some fun and games with: https://libvirt-python.readthedocs.io/capabilities/
+Some fun and games with: https://libvirt-python.readthedocs.io/
 
-This needs: 
+Requirements (Debian):
+
 - pkg-config
 - libvirt-dev
+
+source venv/bin/activate
+pip install -r requirements.txt

@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+""" prints out hypervisor capabilities in xml format """
+
 import libvirt
 
 conn = libvirt.open("qemu:///system")
