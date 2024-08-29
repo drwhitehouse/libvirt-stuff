@@ -17,6 +17,7 @@ def prnt_domain(my_domain):
     print('   memory: '+str(dominfo[2]))
     print('   vcpus: '+str(dominfo[3]))
     print('   cputime: '+str(dominfo[4]))
+    print()
     if dominfo[0] == 1:
         return dominfo[3]
     return 0
