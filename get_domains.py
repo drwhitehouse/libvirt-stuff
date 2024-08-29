@@ -1,16 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """ prints info about guest domains """
 
 import sys
 import libvirt
 
-def prnt_domain(domain):
-    dominfo = domain.info()
-    print('  '+domain.name())
+def prnt_domain(my_domain):
+    """ print the domain """
+    dominfo = my_domain.info()
+    print('  '+my_domain.name())
     print()
-    print('   state: '+str(dominfo[0])) 
-    # 0: no state, 1: running, 2: blocked, 3: paused, 4: shutting down 
+    print('   state: '+str(dominfo[0]))
+    # 0: no state, 1: running, 2: blocked, 3: paused, 4: shutting down
     # 5: shut down, 6: domain crashed, 7: suspended by guest power management
     print('   max memory: '+str(dominfo[1]))
     print('   memory: '+str(dominfo[2]))
@@ -18,8 +19,7 @@ def prnt_domain(domain):
     print('   cputime: '+str(dominfo[4]))
     if dominfo[0] == 1:
         return dominfo[3]
-    else:
-        return 0
+    return 0
 
 try:
     conn = libvirt.open("qemu:///system")
@@ -44,11 +44,11 @@ print("All (active and inactive) domain names:")
 print()
 domains = conn.listAllDomains(0)
 if len(domains) != 0:
-    total_vcpus = 0
+    TOTALVCPUS = 0
     for domain in domains:
-        total_vcpus = total_vcpus + prnt_domain(domain)
+        TOTALVCPUS = TOTALVCPUS + prnt_domain(domain)
     print()
-    print('Total vcpus: '+str(total_vcpus))
+    print('Total vcpus: '+str(TOTALVCPUS))
 else:
     print('  None')
 
