@@ -56,10 +56,12 @@ if len(domains) != 0:
     TOTALVCPUS = 0
     GB = 976600
     for domain in domains:
-        maxram, ram, vcpus = prnt_domain(domain)
-        TOTALMAXRAM = TOTALMAXRAM + maxram
-        TOTALRAM = TOTALRAM + ram
-        TOTALVCPUS = TOTALVCPUS + vcpus
+        dominfo = domain.info()
+        if dominfo[0] == 1:
+            maxram, ram, vcpus = prnt_domain(domain)
+            TOTALMAXRAM = TOTALMAXRAM + maxram
+            TOTALRAM = TOTALRAM + ram
+            TOTALVCPUS = TOTALVCPUS + vcpus
     print()
     print('Total max memory (GB): '+str(int(TOTALMAXRAM / GB)))
     print('Total memory (GB): '+str(int(TOTALRAM / GB)))
