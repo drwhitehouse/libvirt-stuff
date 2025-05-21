@@ -4,11 +4,16 @@
 
 import libvirt
 
-conn = libvirt.open("qemu:///system")
-if not conn:
-    raise SystemExit("Failed to open connection to qemu:///system")
+def main():
+    """main function"""
+    try:
+        conn = libvirt.open("qemu:///system")
+    except libvirt.libvirtError as e:
+        print(repr(e), file=sys.stderr)
+        sys.exit(1)
+    caps = conn.getCapabilities()  # caps will be a string of XML
+    print("Capabilities:\n" + caps)
+    conn.close()
 
-caps = conn.getCapabilities()  # caps will be a string of XML
-print("Capabilities:\n" + caps)
-
-conn.close()
+if __name__ == '__main__':
+    main()
