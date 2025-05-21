@@ -51,7 +51,7 @@ def main():
             print('  '+str(domain_id))
 
     print()
-    print("Domain names:")
+    print("Active / inactive domain names:")
     print()
     domains = conn.listAllDomains(0)
     if len(domains) != 0:
@@ -69,6 +69,7 @@ def main():
             else:
                 prnt_domain(domain)
         print()
+        print('Resources used by active domains:')
         print('Total max memory (GB): '+str(int(total_max_ram / gigabyte)))
         print('Total memory (GB): '+str(int(total_ram / gigabyte)))
         print('Total vcpus: '+str(total_vcpus))
