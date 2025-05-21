@@ -51,7 +51,7 @@ def main():
             print('  '+str(domain_id))
 
     print()
-    print("All (active and inactive) domain names:")
+    print("Active domain names:")
     print()
     domains = conn.listAllDomains(0)
     if len(domains) != 0:
