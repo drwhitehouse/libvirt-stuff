@@ -34,42 +34,42 @@ def main():
     """ main function """
     try:
         conn = libvirt.open("qemu:///system")
-    except libvirt.libvirtError as e:
-        print(repr(e), file=sys.stderr)
+    except libvirt.libvirtError as error:
+        print(repr(error), file=sys.stderr)
         sys.exit(1)
 
-    domainIDs = conn.listDomainsID()
-    if domainIDs is None:
+    domain_ids = conn.listDomainsID()
+    if domain_ids is None:
         print('Failed to get a list of domain IDs', file=sys.stderr)
 
     print("Active domain IDs :")
     print()
-    if len(domainIDs) == 0:
+    if len(domain_ids) == 0:
         print('  None')
     else:
-        for domainID in domainIDs:
-            print('  '+str(domainID))
+        for domain_id in domain_ids:
+            print('  '+str(domain_id))
 
     print()
     print("All (active and inactive) domain names:")
     print()
     domains = conn.listAllDomains(0)
     if len(domains) != 0:
-        TOTALMAXRAM = 0
-        TOTALRAM = 0
-        TOTALVCPUS = 0
-        GB = 976600
+        total_max_ram = 0
+        total_ram = 0
+        total_vcpus = 0
+        gigabyte = 976600
         for domain in domains:
             dominfo = domain.info()
             if dominfo[0] == 1:
                 maxram, ram, vcpus = prnt_domain(domain)
-                TOTALMAXRAM = TOTALMAXRAM + maxram
-                TOTALRAM = TOTALRAM + ram
-                TOTALVCPUS = TOTALVCPUS + vcpus
+                total_max_ram = total_max_ram + maxram
+                total_ram = total_ram + ram
+                total_vcpus = total_vcpus + vcpus
         print()
-        print('Total max memory (GB): '+str(int(TOTALMAXRAM / GB)))
-        print('Total memory (GB): '+str(int(TOTALRAM / GB)))
-        print('Total vcpus: '+str(TOTALVCPUS))
+        print('Total max memory (GB): '+str(int(total_max_ram / gigabyte)))
+        print('Total memory (GB): '+str(int(total_ram / gigabyte)))
+        print('Total vcpus: '+str(total_vcpus))
     else:
         print('  None')
 
