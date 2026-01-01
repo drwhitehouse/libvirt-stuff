@@ -2,6 +2,7 @@
 
 """ prints info about guest domains """
 
+import os
 import sys
 import libvirt
 
@@ -30,8 +31,14 @@ def prnt_domain(my_domain):
         return dominfo[1], dominfo[2], dominfo[3]
     return 0
 
+def get_host_resources():
+    """ get them """
+    cores = os.cpu_count()
+    return cores
+
 def main():
     """ main function """
+    my_cores = get_host_resources()
     try:
         conn = libvirt.open("qemu:///system")
     except libvirt.libvirtError as error:
@@ -75,6 +82,9 @@ def main():
         print('Total vcpus: '+str(total_vcpus))
     else:
         print('  None')
+    print()
+    print('Host Resources:')
+    print(type(my_cores))
 
     conn.close()
     sys.exit(0)
